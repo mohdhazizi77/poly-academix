@@ -25,6 +25,29 @@
                         </a>
                     </li>
 
+                    {{--                    <li class="sidebar-main-title"></li>--}}
+
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#">
+                            <i data-feather="monitor"></i>
+                            <span>Rooms</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="#">
+                            <i data-feather="star"></i>
+                            <span>Quizzes</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-main-title">
+                        <div>
+                            <h6>General Setting</h6>
+                        </div>
+                    </li>
+
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="#">
                             <i data-feather="briefcase"></i>
@@ -41,11 +64,23 @@
 
                     <li class="sidebar-list">
                         <a class="sidebar-link sidebar-title" href="#">
-                            <i data-feather="monitor"></i>
-                            <span>Rooms</span>
+                            <i data-feather="server"></i>
+                            <span>Question Bank</span>
                         </a>
                     </li>
 
+                    <li class="sidebar-main-title">
+                        <div>
+                            <h6>System Setting</h6>
+                        </div>
+                    </li>
+
+                    <li class="sidebar-list">
+                        <a class="sidebar-link sidebar-title" href="{{ route('users.index') }}">
+                            <i data-feather="users"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
 
                 </ul>
             </div>
