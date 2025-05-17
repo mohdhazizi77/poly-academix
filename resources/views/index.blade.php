@@ -11,7 +11,7 @@
 @endsection
 
 @section('breadcrumb-title')
-    <h3 class="pt-4">Default</h3>
+    <h3 class="pt-4">Dashboard</h3>
 @endsection
 
 @section('breadcrumb-items')
