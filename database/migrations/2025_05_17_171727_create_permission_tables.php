@@ -113,9 +113,9 @@ return new class extends Migration {
         });
 
         // Create roles
-        Role::create(['name' => 'super admin']);
-        Role::create(['name' => 'admin']);
-        Role::create(['name' => 'student']);
+        Role::create(['name' => 'SUPER ADMIN']);
+        Role::create(['name' => 'ADMIN']);
+        Role::create(['name' => 'STUDENT']);
 
         // Create users
         $sa = User::create([

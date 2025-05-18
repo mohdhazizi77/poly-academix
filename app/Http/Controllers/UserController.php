@@ -20,7 +20,7 @@ class UserController extends Controller
         if ($request->ajax()) {
 
             //CURRENT USER
-            $cUser = Auth::User() ? Auth::User() : abort(403);
+//            $cUser = Auth::User() ? Auth::User() : abort(403);
 
             $role = $request->role;
 
@@ -32,7 +32,7 @@ class UserController extends Controller
                         'users.id AS id',
                         'roles.name AS role',
                         'users.name',
-                        'users.email1',
+                        'users.email',
                         'users.is_active'
                     );
 
@@ -44,10 +44,10 @@ class UserController extends Controller
 
             $data = !empty($query) ? $query->get() : [];
 
-//            foreach ($data as $row) {
-//                $row->actionUpdate = route('users.edit', ['users' => Crypt::encrypt($row->id)]);
-//                $row->actionDelete = route('users.destroy', ['users' => Crypt::encrypt($row->id)]);
-//            }
+            foreach ($data as $row) {
+                $row->actionUpdate = route('users.edit', ['user' => Crypt::encrypt($row->id)]);
+                $row->actionDelete = route('users.destroy', ['user' => Crypt::encrypt($row->id)]);
+            }
 
             return DataTables::of($data)->addIndexColumn()->toJson();
         }

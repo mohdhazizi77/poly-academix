@@ -22,6 +22,6 @@ Route::view('index', 'index')->name('index');
 Route::prefix('system-setting')->group(function () {
 
     Route::resource('users', \App\Http\Controllers\UserController::class)->except('show');
-    Route::post('userss/ajax', [\App\Http\Controllers\UserController::class, 'getAjax'])->name('users.ajax');
+    Route::post('users/ajax', [\App\Http\Controllers\UserController::class, 'getAjax'])->name('users.ajax');
 
 });

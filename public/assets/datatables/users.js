@@ -17,6 +17,12 @@ $(document).ready(function () {
             },
             columns: [
                 {
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                    orderable: false,
+                    searchable: false,
+                },
+                {
                     data: 'role',
                     name: 'role',
                     class: 'text-center',
@@ -35,6 +41,15 @@ $(document).ready(function () {
                     data: 'is_active',
                     name: 'is_active',
                     class: 'text-center',
+                    render(data, type, row) {
+                        let result = '';
+                        if (data === 1) {
+                            result += '<span class="badge badge-success">Success</span>';
+                        } else {
+                            result += '<span class="badge badge-danger">Danger</span>';
+                        }
+                        return result;
+                    }
                 },
                 {
                     data: 'id',
@@ -42,17 +57,11 @@ $(document).ready(function () {
                     class: 'text-center',
                     render(data, type, row) {
                         let btn = '';
-                        // if (row.role === 'admin') {
-                        //
-                        //     // btn += row.actionReset ? '<a href="javascript:void(0);" data-url="' + row.actionReset + '" style="margin-left: 5px; margin-right: 10px;" class="text-info btn-reset"><i class="mdi mdi-lock-reset font-size-18"></i></a>' : '';
-                        //     btn += row.actionUpdate ? '<a href="' + row.actionUpdate + '" style="margin-left: -5px; margin-right: 5px;" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>' : '';
-                        //
-                        // } else if (row.role === 'student') {
-                        //
-                        //     // btn += row.actionReset ? '<a href="javascript:void(0);" data-url="' + row.actionReset + '" style="margin-left: 5px; margin-right: 10px;" class="text-info btn-reset"><i class="mdi mdi-lock-reset font-size-18"></i></a>' : '';
-                        //     btn += row.actionUpdate ? '<a href="' + row.actionUpdate + '" style="margin-left: -5px; margin-right: 5px;" class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>' : '';
-                        //
-                        // }
+                        if (row.role !== 'SUPER ADMIN') {
+                            // btn += row.actionReset ? '<a href="javascript:void(0);" data-url="' + row.actionReset + '" style="margin-left: 5px; margin-right: 10px;" class="text-info btn-reset"><i class="mdi mdi-lock-reset font-size-18"></i></a>' : '';
+                            btn += row.actionUpdate ? '<a href="' + row.actionUpdate + '" style="margin-left: -5px; margin-right: 5px;" class="text-primary"><i data-feather="edit">Edit</i></a>' : '';
+                            btn += row.actionDelete ? '<a href="javascript:void(0);" data-url="' + row.actionDelete + '" style="margin-left: 5px; margin-right: 5px;" class="text-danger btn-delete"><i class="fa-solid fa-life-ring">Delete</i></a>' : '';
+                        }
                         return btn;
                     }
                 },
@@ -81,7 +90,6 @@ $(document).ready(function () {
                 $('#button-search').prop('disabled', false);
             }
         });
-
 
 
     }

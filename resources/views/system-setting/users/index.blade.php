@@ -3,8 +3,6 @@
 @section('title', 'Default')
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/animate.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/prism.css') }}">
 {{--DATATABLE--}}
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/datatables.css') }}">
 
@@ -35,6 +33,7 @@
                             <table class="display" id="dt1">
                                 <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Role</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -62,7 +61,8 @@
     </script>
 
     {{--DATATABLE--}}
-    <script src="{{ asset('assets/datatables/users.js') }}"></script>
     <script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('assets/datatables/users.js') }}"></script>
+
 
 @endsection
