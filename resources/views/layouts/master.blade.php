@@ -76,6 +76,9 @@
 </div>
 <!-- latest jquery-->
 @include('layouts.script')
+@include('swal-script.script')
+
+
 <!-- Plugin used-->
 
 {{-- <script type="text/javascript">

@@ -13,11 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Authentication Routes
+Route::get('/login', [\App\Http\Controllers\AuthenticationController::class, 'showLoginForm'])->name('login')->middleware('guest');
+Route::post('/login', [\App\Http\Controllers\AuthenticationController::class, 'login'])->name('login.submit');
+Route::post('/logout', [\App\Http\Controllers\AuthenticationController::class, 'logout'])->name('logout')->middleware('auth');
+
+// Protect index route
 Route::get('/', function () {
     return redirect()->route('index');
 })->name('/');
 
-Route::view('index', 'index')->name('index');
+Route::view('index', 'index')->name('index')->middleware('auth');
 
 Route::prefix('system-setting')->group(function () {
 

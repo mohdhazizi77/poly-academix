@@ -1,5 +1,11 @@
 $(document).ready(function () {
 
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     if ($('#dt1').length > 0) {
         var dt = $('#dt1').DataTable({
             responsive: false,
@@ -8,12 +14,9 @@ $(document).ready(function () {
             ajax: {
                 url: ajaxUrl,
                 type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                "data": function (data) {
+                    data.ddRole = $('#ddRole').val();
                 },
-                data: function (data) {
-                    data.role = $('#role').val();
-                }
             },
             columns: [
                 {
@@ -44,9 +47,9 @@ $(document).ready(function () {
                     render(data, type, row) {
                         let result = '';
                         if (data === 1) {
-                            result += '<span class="badge badge-success">Success</span>';
+                            result += '<span class="badge badge-success">Active</span>';
                         } else {
-                            result += '<span class="badge badge-danger">Danger</span>';
+                            result += '<span class="badge badge-danger">Inactive</span>';
                         }
                         return result;
                     }
@@ -59,13 +62,16 @@ $(document).ready(function () {
                         let btn = '';
                         if (row.role !== 'SUPER ADMIN') {
                             // btn += row.actionReset ? '<a href="javascript:void(0);" data-url="' + row.actionReset + '" style="margin-left: 5px; margin-right: 10px;" class="text-info btn-reset"><i class="mdi mdi-lock-reset font-size-18"></i></a>' : '';
-                            btn += row.actionUpdate ? '<a href="' + row.actionUpdate + '" style="margin-left: -5px; margin-right: 5px;" class="text-primary"><i data-feather="edit">Edit</i></a>' : '';
-                            btn += row.actionDelete ? '<a href="javascript:void(0);" data-url="' + row.actionDelete + '" style="margin-left: 5px; margin-right: 5px;" class="text-danger btn-delete"><i class="fa-solid fa-life-ring">Delete</i></a>' : '';
+                            btn += row.actionUpdate ? '<a href="' + row.actionUpdate + '" style="margin-left: -5px; margin-right: 5px;" class="text-primary"><i data-feather="edit"></i></a>' : '';
+                            btn += row.actionDelete ? '<a href="javascript:void(0);" data-url="' + row.actionDelete + '" style="margin-left: 5px; margin-right: 5px;" class="text-danger btn-delete"><i data-feather="trash-2"></i></a>' : '';
                         }
                         return btn;
                     }
                 },
             ],
+            drawCallback: function () {
+                feather.replace(); // re-initialize feather icons on newly rendered rows
+            },
             pageLength: 50,
             bLengthChange: true,
             order: [
@@ -89,6 +95,23 @@ $(document).ready(function () {
                 $('#button-search-icon').addClass('fas fa-search me-1');
                 $('#button-search').prop('disabled', false);
             }
+        });
+
+        $(document).on("click", ".btn-delete", function (e) {
+            e.preventDefault();
+            let actionUrl = $(this).data("url");
+
+            confirmDelete({
+                title: 'Delete User',
+                text: 'Are you sure?<br>This process cannot be undone!',
+                confirmText: 'Delete',
+                cancelText: 'Back',
+                deleteUrl: actionUrl,
+                successText: 'User has been successfully deleted!',
+                onSuccess: function () {
+                    dt.ajax.reload(null, true);
+                }
+            });
         });
 
 
